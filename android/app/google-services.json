@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "425904182108",
+    "project_id": "bano-qabil-lms",
+    "storage_bucket": "bano-qabil-lms.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425904182108:android:fc02c8271ebc4f3d406799",
+        "android_client_info": {
+          "package_name": "com.example.qabilacademy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYyWsL8h0rP-LKSqJgJChGExqmH4MxT_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
