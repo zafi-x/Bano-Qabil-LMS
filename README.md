@@ -1,4 +1,4 @@
-# qabilacademy
+dart pub global activate flutterfire_clidart pub global activate flutterfire_cli# qabilacademy
 
 A new Flutter project.
 
