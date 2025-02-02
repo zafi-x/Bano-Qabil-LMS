@@ -14,8 +14,12 @@ class OnBoarding extends StatelessWidget {
         skipTextButton: const Text('Skip'),
         trailing: const Text('Login'),
         background: [
-          Image.asset('assets/onboarding.png'),
-          Image.asset('assets/onboarding3.png'),
+          Image.asset(
+            'assets/onboarding1.png',
+            fit: BoxFit.fitWidth,
+          ),
+          Image.asset('assets/onboarding1.png'),
+          Image.asset('assets/onboarding1.png'),
         ],
         totalPage: 3,
         speed: 1.8,
@@ -25,7 +29,7 @@ class OnBoarding extends StatelessWidget {
             child: const Column(
               children: <Widget>[
                 SizedBox(
-                  height: 480,
+                  height: 300,
                 ),
                 Text('Description Text 1'),
               ],
@@ -36,7 +40,7 @@ class OnBoarding extends StatelessWidget {
             child: const Column(
               children: <Widget>[
                 SizedBox(
-                  height: 480,
+                  height: 300,
                 ),
                 Text('Description Text 2'),
               ],
