@@ -25,14 +25,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
+    // Disposing controllers
     super.dispose();
     nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
-  }
+  } //jab screen naw rhy tou data dispose krdy ga
 
   void registerUser() async {
     if (_formKey.currentState!.validate()) {
+      // neachy form ma jo validators hain wo check kry ga
       setState(() {
         isLoading = true;
       });
@@ -117,6 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 40,
                 ),
                 Form(
+                    // form create hai taky user data ko hm validate kr sky
                     key: _formKey,
                     child: Column(
                       children: [
@@ -127,8 +130,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             decoration: InputDecoration(
                               fillColor: Colors.indigo[50],
                               filled: true,
-                              hintText: 'Join as',
-                              hintStyle: const TextStyle(color: Colors.indigo),
+                              labelText: 'Join as',
+                              labelStyle: TextStyle(color: Colors.indigo),
                               focusedBorder: OutlineInputBorder(
                                 borderSide:
                                     const BorderSide(color: Colors.indigo),

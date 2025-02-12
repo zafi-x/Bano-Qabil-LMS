@@ -15,9 +15,12 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-bool isloading = false;
+final FirebaseAuth _auth =
+    FirebaseAuth.instance; // yeh hmny firebase auth ka instance bnya ha
+final FirebaseFirestore _firestore = FirebaseFirestore
+    .instance; // yeh firestore ka instance bnya ha jahan data store hoga
+bool isloading =
+    false; // yeh variable hmny isliye bnya ha k jb user login kr rha hoga toh loading indicator show ho, pehly false rakha ha
 TextEditingController loginEmailController = TextEditingController();
 TextEditingController loginPasswordController = TextEditingController();
 
@@ -106,14 +109,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 60,
                 ),
                 MainButton(
-                  loading: isloading,
+                  loading:
+                      isloading, // yeh main button jo design kea us ma loading variable tha us ko isloading ki value de di
                   title: 'Login',
                   onTap: () async {
-                    var loginEmail = loginEmailController.text.trim();
-                    var loginPassword = loginPasswordController.text.trim();
+                    var loginEmail = loginEmailController.text
+                        .trim(); //jo data user na email field ma dala ha wo loginEmail ma store ho rha ha
+                    var loginPassword = loginPasswordController.text
+                        .trim(); // jo data user na password field ma dala ha wo loginPassword ma store ho rha ha
                     isloading = true;
 
                     if (loginEmail.isEmpty || loginPassword.isEmpty) {
+                      // agar email ya password empty ha toh yeh error show krega
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content:
@@ -124,18 +131,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     try {
                       // Show the loading indicator
                       setState(() {
-                        isloading = true;
+                        isloading =
+                            true; // yeh loading indicator show krne k liye ha
                       });
 
                       // Authenticate the user
                       final UserCredential userCredential =
                           await _auth.signInWithEmailAndPassword(
+                        // yeh firebase auth ka method ha jo user ko login krwata ha
                         email: loginEmail,
                         password: loginPassword,
                       );
-                      final User? firebaseUser = userCredential.user;
+                      final User? firebaseUser = userCredential
+                          .user; // yeh user ka data ha jo login hua ha
 
                       if (firebaseUser == null) {
+                        // agar user null ha toh yeh error show krega
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                               content: Text('Login failed: User not found')),
@@ -146,12 +157,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         return;
                       }
 
-                      DocumentSnapshot userDoc = await _firestore
-                          .collection('users')
-                          .doc(firebaseUser.uid)
-                          .get();
+                      DocumentSnapshot userDoc =
+                          await _firestore // yeh user ka data firestore ma store krne k liye ha
+                              .collection(
+                                  'users') // yeh collection ka name ha jahan user ka data store hoga
+                              .doc(firebaseUser
+                                  .uid) // yeh user ka id ha jis user ka data store hoga
+                              .get();
 
                       if (!userDoc.exists) {
+                        // agar user ka data firestore ma nhi mila toh yeh error show krega
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                               content: Text('User data not found in database')),
@@ -162,7 +177,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         return;
                       }
 
-                      String userRole = userDoc['userRole'];
+                      String userRole = userDoc[
+                          'userRole']; // yeh user ka role ha jo firestore ma store ha
                       if (userRole == 'Admin') {
                         Get.to(() => const HomeScreen());
                       } else if (userRole == 'User') {
@@ -176,6 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       }
                     } on FirebaseAuthException catch (e) {
+                      // agar koi error aye toh yeh catch krega
                       String errorMessage;
                       if (e.code == 'user-not-found') {
                         errorMessage = 'No user found with this email.';
