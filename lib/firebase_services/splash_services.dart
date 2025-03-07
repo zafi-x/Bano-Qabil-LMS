@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qabilacademy/ui/Huzaifa/studentScreen/Dashboard/StudentDashboard.dart';
 import 'package:qabilacademy/ui/homeScreens/ad_home_screen.dart';
 import 'package:qabilacademy/ui/homeScreens/stu_home_screen.dart';
 import 'package:qabilacademy/ui/auth/login_screen.dart';
@@ -31,7 +32,7 @@ class SplashServices {
 
         Timer(const Duration(seconds: 3), () {
           if (role.toLowerCase() == 'student') {
-            Get.to(() => const StuHomeScreen());
+            Get.to(() => StudentDashboard());
           } else {
             Get.to(() => const AdHomeScreen());
           }

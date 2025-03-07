@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
           // Background image
           Positioned.fill(
             child: Image.asset(
-              "assets/bg1.jpg", // Path to your background image
+              "assets/bg1.jpg",
               fit: BoxFit.cover,
             ),
           ),

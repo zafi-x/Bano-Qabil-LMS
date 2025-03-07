@@ -47,7 +47,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
 
         if (userRole == "Student") {
-          // Go to Add Student Info Screen
           Get.to(() => AddStudent(
                 uid: userCredential.user!.uid,
                 name: _nameController.text.trim(),
@@ -55,7 +54,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 role: userRole,
               ));
         } else {
-          // Save data for Admin directly
           await _firestore
               .collection('users')
               .doc(userCredential.user!.uid)
@@ -98,61 +96,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }
     }
   }
-
-  // void registerUser() async {
-  //   if (_formKey.currentState!.validate() && userRole != null) {
-  //     setState(() {
-  //       isLoading = true;
-  //     });
-  //     try {
-  //       UserCredential userCredential =
-  //           await _auth.createUserWithEmailAndPassword(
-  //         email: _emailController.text.trim(),
-  //         password: _passwordController.text.trim(),
-  //       );
-
-  //       await _firestore.collection('users').doc(userCredential.user!.uid).set({
-  //         'uid': userCredential.user!.uid,
-  //         'name': _nameController.text.trim(),
-  //         'email': _emailController.text.trim(),
-  //         'role': userRole,
-  //         'createdAt': DateTime.now(),
-  //       });
-
-  //       // Show success message and navigate to Login screen
-  //       Get.snackbar('Success', 'Account created successfully!',
-  //           backgroundColor: Colors.green, colorText: Colors.white);
-  //       isLoading = false;
-  //       Get.to(() => const LoginScreen());
-  //     } on FirebaseAuthException catch (e) {
-  //       // Handle Firebase authentication errors
-  //       String errorMessage = '';
-  //       switch (e.code) {
-  //         case 'email-already-in-use':
-  //           errorMessage = 'The email is already registered.';
-  //           break;
-  //         case 'weak-password':
-  //           errorMessage = 'The password is too weak.';
-  //           break;
-  //         case 'invalid-email':
-  //           errorMessage = 'The email address is not valid.';
-  //           break;
-  //         default:
-  //           errorMessage = 'An unknown error occurred. Please try again.';
-  //       }
-  //       Get.snackbar('Error', errorMessage,
-  //           backgroundColor: Colors.red, colorText: Colors.white);
-  //     } catch (e) {
-  //       // Handle general errors
-  //       Get.snackbar('Error', 'Something went wrong. Please try again.',
-  //           backgroundColor: Colors.red, colorText: Colors.white);
-  //     } finally {
-  //       setState(() {
-  //         isLoading = false;
-  //       });
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

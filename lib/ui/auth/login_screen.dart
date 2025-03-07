@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qabilacademy/components/main_button.dart';
+import 'package:qabilacademy/ui/Huzaifa/studentScreen/Dashboard/StudentDashboard.dart';
 import 'package:qabilacademy/ui/auth/register_screen.dart';
 import 'package:qabilacademy/ui/homeScreens/ad_home_screen.dart';
 import 'package:qabilacademy/ui/homeScreens/stu_home_screen.dart';
@@ -15,11 +16,8 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-final FirebaseAuth _auth =
-    FirebaseAuth.instance; // yeh hmny firebase auth ka instance bnya ha
-final FirebaseFirestore _firestore = FirebaseFirestore
-    .instance; // yeh firestore ka instance bnya ha jahan data store hoga
-// yeh variable hmny isliye bnya ha k jb user login kr rha hoga toh loading indicator show ho, pehly false rakha ha
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 TextEditingController loginEmailController = TextEditingController();
 TextEditingController loginPasswordController = TextEditingController();
 
@@ -182,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (role == 'Admin') {
                         Get.to(() => const AdHomeScreen());
                       } else if (role == 'Student') {
-                        Get.to(() => const StuHomeScreen());
+                        Get.to(() => StudentDashboard());
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Invalid role: $role')),
