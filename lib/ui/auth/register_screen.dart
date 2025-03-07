@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qabilacademy/components/main_button.dart';
 import 'package:get/get.dart';
+import 'package:qabilacademy/ui/auth/add_student.dart';
 import 'package:qabilacademy/ui/auth/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -16,9 +17,9 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   String userRole = 'user';
   final _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool isLoading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -27,14 +28,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void dispose() {
     // Disposing controllers
     super.dispose();
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   } //jab screen naw rhy tou data dispose krdy ga
 
   void registerUser() async {
-    if (_formKey.currentState!.validate()) {
-      // neachy form ma jo validators hain wo check kry ga
+    if (_formKey.currentState!.validate() && userRole != null) {
       setState(() {
         isLoading = true;
       });
@@ -42,25 +42,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // Create user with email and password
         UserCredential userCredential =
             await _auth.createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim(),
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
         );
 
-        await _firestore.collection('users').doc(userCredential.user!.uid).set({
-          'uid': userCredential.user!.uid,
-          'name': nameController.text.trim(),
-          'email': emailController.text.trim(),
-          'role': userRole,
-          'createdAt': DateTime.now(),
-        });
+        if (userRole == "Student") {
+          // Go to Add Student Info Screen
+          Get.to(() => AddStudent(
+                uid: userCredential.user!.uid,
+                name: _nameController.text.trim(),
+                email: _emailController.text.trim(),
+                role: userRole,
+              ));
+        } else {
+          // Save data for Admin directly
+          await _firestore
+              .collection('users')
+              .doc(userCredential.user!.uid)
+              .set({
+            'uid': userCredential.user!.uid,
+            'name': _nameController.text.trim(),
+            'email': _emailController.text.trim(),
+            'role': userRole,
+            'createdAt': DateTime.now(),
+          });
 
-        // Show success message and navigate to Login screen
-        Get.snackbar('Success', 'Account created successfully!',
-            backgroundColor: Colors.green, colorText: Colors.white);
-        isloading = false;
-        Get.to(() => const LoginScreen());
+          Get.snackbar('Success', 'Account created successfully!',
+              backgroundColor: Colors.green, colorText: Colors.white);
+          Get.to(() => const LoginScreen());
+        }
       } on FirebaseAuthException catch (e) {
-        // Handle Firebase authentication errors
         String errorMessage = '';
         switch (e.code) {
           case 'email-already-in-use':
@@ -78,7 +89,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Get.snackbar('Error', errorMessage,
             backgroundColor: Colors.red, colorText: Colors.white);
       } catch (e) {
-        // Handle general errors
         Get.snackbar('Error', 'Something went wrong. Please try again.',
             backgroundColor: Colors.red, colorText: Colors.white);
       } finally {
@@ -88,6 +98,61 @@ class _RegisterScreenState extends State<RegisterScreen> {
       }
     }
   }
+
+  // void registerUser() async {
+  //   if (_formKey.currentState!.validate() && userRole != null) {
+  //     setState(() {
+  //       isLoading = true;
+  //     });
+  //     try {
+  //       UserCredential userCredential =
+  //           await _auth.createUserWithEmailAndPassword(
+  //         email: _emailController.text.trim(),
+  //         password: _passwordController.text.trim(),
+  //       );
+
+  //       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+  //         'uid': userCredential.user!.uid,
+  //         'name': _nameController.text.trim(),
+  //         'email': _emailController.text.trim(),
+  //         'role': userRole,
+  //         'createdAt': DateTime.now(),
+  //       });
+
+  //       // Show success message and navigate to Login screen
+  //       Get.snackbar('Success', 'Account created successfully!',
+  //           backgroundColor: Colors.green, colorText: Colors.white);
+  //       isLoading = false;
+  //       Get.to(() => const LoginScreen());
+  //     } on FirebaseAuthException catch (e) {
+  //       // Handle Firebase authentication errors
+  //       String errorMessage = '';
+  //       switch (e.code) {
+  //         case 'email-already-in-use':
+  //           errorMessage = 'The email is already registered.';
+  //           break;
+  //         case 'weak-password':
+  //           errorMessage = 'The password is too weak.';
+  //           break;
+  //         case 'invalid-email':
+  //           errorMessage = 'The email address is not valid.';
+  //           break;
+  //         default:
+  //           errorMessage = 'An unknown error occurred. Please try again.';
+  //       }
+  //       Get.snackbar('Error', errorMessage,
+  //           backgroundColor: Colors.red, colorText: Colors.white);
+  //     } catch (e) {
+  //       // Handle general errors
+  //       Get.snackbar('Error', 'Something went wrong. Please try again.',
+  //           backgroundColor: Colors.red, colorText: Colors.white);
+  //     } finally {
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fillColor: Colors.indigo[50],
                               filled: true,
                               labelText: 'Join as',
-                              labelStyle: TextStyle(color: Colors.indigo),
+                              labelStyle: const TextStyle(color: Colors.indigo),
                               focusedBorder: OutlineInputBorder(
                                 borderSide:
                                     const BorderSide(color: Colors.indigo),
@@ -169,7 +234,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           margin: const EdgeInsets.symmetric(horizontal: 20),
                           child: TextFormField(
                             keyboardType: TextInputType.name,
-                            controller: nameController,
+                            controller: _nameController,
                             decoration: InputDecoration(
                               suffixIcon: const Icon(
                                 Icons.person,
@@ -205,7 +270,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           margin: const EdgeInsets.symmetric(horizontal: 20),
                           child: TextFormField(
                             keyboardType: TextInputType.emailAddress,
-                            controller: emailController,
+                            controller: _emailController,
                             decoration: InputDecoration(
                               suffixIcon: const Icon(
                                 Icons.email,
@@ -240,7 +305,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Container(
                           margin: const EdgeInsets.symmetric(horizontal: 20),
                           child: TextFormField(
-                            controller: passwordController,
+                            controller: _passwordController,
                             decoration: InputDecoration(
                               suffixIcon: const Icon(
                                 Icons.remove_red_eye,
