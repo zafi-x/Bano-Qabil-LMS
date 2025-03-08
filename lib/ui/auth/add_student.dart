@@ -219,23 +219,20 @@ class _AddStudentState extends State<AddStudent> {
                 ElevatedButton(
                   onPressed: isLoading ? null : saveStudentInfo,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.indigo, // Teal color
-                    minimumSize:
-                        const Size(200, 50), // Increased width and height
+                    backgroundColor: Colors.indigo,
+                    minimumSize: const Size(200, 50),
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(10), // Slightly rounded corners
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   child: isLoading
                       ? const CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.white), // White loader
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
                         )
                       : const Text(
                           "Save",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 18), // White text
+                          style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                 )
               ],

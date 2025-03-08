@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:qabilacademy/ui/attendence/prev_atten_Screen.dart';
-import 'package:qabilacademy/ui/attendence/view_prev_atten.dart';
 
 class MarkAttendance extends StatefulWidget {
   final String subjectName;

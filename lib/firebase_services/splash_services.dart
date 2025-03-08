@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Dashboard/StudentDashboard.dart';
 import 'package:qabilacademy/ui/homeScreens/ad_home_screen.dart';
-import 'package:qabilacademy/ui/homeScreens/stu_home_screen.dart';
 import 'package:qabilacademy/ui/auth/login_screen.dart';
 
 class SplashServices {
