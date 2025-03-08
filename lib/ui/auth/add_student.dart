@@ -76,7 +76,6 @@ class _AddStudentState extends State<AddStudent> {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
-              spacing: 20,
               children: [
                 TextFormField(
                   controller: _rollNoController,

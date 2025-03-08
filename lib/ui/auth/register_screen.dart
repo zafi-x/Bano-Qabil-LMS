@@ -109,8 +109,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Colors.white,
               Colors.teal,
             ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
           ),
         ),
         child: Center(

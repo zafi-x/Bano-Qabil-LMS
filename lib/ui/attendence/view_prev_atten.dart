@@ -21,7 +21,6 @@ class ViewPrevAtten extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  spacing: 20,
                   children: [
                     Text(
                       ' Roll N0',
@@ -30,6 +29,7 @@ class ViewPrevAtten extends StatelessWidget {
                           color: Colors.indigo,
                           fontSize: 16),
                     ),
+                    SizedBox(width: 20),
                     Text(
                       'Name',
                       style: TextStyle(
