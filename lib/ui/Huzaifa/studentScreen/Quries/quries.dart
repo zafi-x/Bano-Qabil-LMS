@@ -70,15 +70,19 @@ class _QueriesScreenState extends State<QueriesScreen> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: queries.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  margin: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                    title: Text('Query: ${queries[index]['query']}'),
-                    subtitle: Text('Response: ${queries[index]['response']}'),
-                  ),
+            child: Consumer<QueryProvider>(
+              builder: (context, provider, child) {
+                return ListView.builder(
+                  itemCount: provider.queries.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      margin: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        title: Text(provider.queries[index]['query']!),
+                        subtitle: Text(provider.queries[index]['response']!),
+                      ),
+                    );
+                  },
                 );
               },
             ),
