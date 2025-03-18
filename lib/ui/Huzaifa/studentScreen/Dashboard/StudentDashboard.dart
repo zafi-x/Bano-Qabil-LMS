@@ -1,17 +1,30 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quries/quries.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Tasks/task.dart';
-// import 'package:qabilacademy/main.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/cources/CourcesScreen.dart';
 import 'package:qabilacademy/ui/Huzaifa/custom/DashBoardItem.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/quiz_screen.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/TimeTable/timeTable.dart'
-    // ignore: library_prefixes
     as timeTable1;
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/profile/Profile.dart';
+
+import '../../../auth/login_screen.dart';
+
+class StudentDashboard extends StatelessWidget {
+  void logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      print("User logged out successfully");
+    } catch (e) {
+      print("Error logging out: $e");
+    }
+    Get.to(() => LoginScreen());
+  }
 
 class StudentDashboard extends StatefulWidget {
   @override
@@ -84,7 +97,9 @@ class _StudentDashboardState extends State<StudentDashboard> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text("Sign Out"),
-              onTap: () {},
+              onTap: () {
+                logout();
+              },
             ),
           ],
         ),

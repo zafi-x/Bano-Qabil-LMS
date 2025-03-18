@@ -123,14 +123,13 @@ class _BatchScreenState extends State<BatchScreen> {
         .doc(widget.subjectName)
         .collection("batches")
         .add({
-      'batchName':
-          selectedBatch, // Fixed: Using selected batch instead of _batchController
+      'batchName': selectedBatch,
       'instituteName': _instituteController.text,
       'instructorName': _instructorController.text,
       'timestamp': FieldValue.serverTimestamp(),
     });
 
-    await fetchBatches(); // Ensure UI updates properly
+    await fetchBatches();
     if (mounted) {
       setState(() {});
     }
@@ -139,7 +138,7 @@ class _BatchScreenState extends State<BatchScreen> {
     _instructorController.clear();
     selectedBatch = null;
 
-    Navigator.pop(context); // Close bottom sheet
+    Navigator.pop(context);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Data saved successfully!')),

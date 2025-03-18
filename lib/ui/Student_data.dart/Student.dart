@@ -92,12 +92,10 @@ class _StudentListScreenState extends State<StudentListScreen> {
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.indigo, // Teal color
-                      minimumSize:
-                          const Size(200, 50), // Increased width and height
+                      backgroundColor: Colors.indigo,
+                      minimumSize: const Size(200, 50),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            10), // Slightly rounded corners
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),

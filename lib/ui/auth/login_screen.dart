@@ -7,7 +7,6 @@ import 'package:qabilacademy/components/main_button.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Dashboard/StudentDashboard.dart';
 import 'package:qabilacademy/ui/auth/register_screen.dart';
 import 'package:qabilacademy/ui/homeScreens/ad_home_screen.dart';
-import 'package:qabilacademy/ui/homeScreens/stu_home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
