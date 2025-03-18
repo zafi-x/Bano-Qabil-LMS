@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,23 +16,55 @@ import 'package:qabilacademy/ui/Huzaifa/studentScreen/profile/Profile.dart';
 
 import '../../../auth/login_screen.dart';
 
-class StudentDashboard extends StatelessWidget {
-  void logout() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      print("User logged out successfully");
-    } catch (e) {
-      print("Error logging out: $e");
-    }
-    Get.to(() => LoginScreen());
+void logout() async {
+  try {
+    await FirebaseAuth.instance.signOut();
+    // print("User logged out successfully");
+  } catch (e) {
+    // print("Error logging out: $e");
   }
+  Get.to(() => LoginScreen());
+}
 
 class StudentDashboard extends StatefulWidget {
+  const StudentDashboard({super.key});
+
   @override
   State<StudentDashboard> createState() => _StudentDashboardState();
 }
 
 class _StudentDashboardState extends State<StudentDashboard> {
+  User? user = FirebaseAuth.instance.currentUser;
+  String userName = "Guest User";
+  String userEmail = "No Email";
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  void fetchUserData() async {
+    if (user != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user!.uid)
+            .get();
+
+        if (userDoc.exists) {
+          setState(() {
+            userName = (userDoc['name'] ?? "Guest User").toUpperCase();
+
+            userEmail = userDoc['email'] ?? "No Email";
+          });
+        }
+      } catch (e) {
+        print("Error fetching user data: $e");
+      }
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -52,8 +85,8 @@ class _StudentDashboardState extends State<StudentDashboard> {
                     MaterialPageRoute(
                         builder: (context) => const ProfileScreen()));
               },
-              accountName: const Text("Muhammad Huzaifa"),
-              accountEmail: const Text("huzaifa@example.com"),
+              accountName: Text(userName),
+              accountEmail: Text(userEmail),
               currentAccountPicture: const CircleAvatar(
                 backgroundImage: AssetImage('assets/image.png'),
               ),
@@ -72,8 +105,12 @@ class _StudentDashboardState extends State<StudentDashboard> {
               leading: const Icon(Icons.quiz),
               title: const Text("Quizes"),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => QuizScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => QuizScreen(
+                              quizId: "LNdC0HC7EXVgydpAz4Rv",
+                            )));
               },
             ),
             ListTile(
@@ -117,39 +154,43 @@ class _StudentDashboardState extends State<StudentDashboard> {
                     MaterialPageRoute(
                         builder: (context) => const ProfileScreen()));
               },
-              child: Container(
-                height: 120.h,
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.teal,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 45,
-                      backgroundImage: AssetImage('assets/image.png'),
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Welcome Back,",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 20.sp)),
-                        Text("Muhammad Huzaifa",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold)),
-                        Text("Mobile APP Dev | 1234",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 16.sp)),
-                      ],
-                    )
-                  ],
+              child: Flexible(
+                child: Container(
+                  // height: 120.h,
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.teal,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 45.r,
+                        backgroundImage: AssetImage('assets/image.png'),
+                      ),
+                      const SizedBox(width: 10),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Welcome Back!",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white, fontSize: 19.sp)),
+                            Text(userName,
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 19.sp,
+                                    fontWeight: FontWeight.bold)),
+                            Text("Mobile APP Dev | 1234",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white, fontSize: 14.sp)),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -207,7 +248,8 @@ class _StudentDashboardState extends State<StudentDashboard> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => QuizScreen()));
+                              builder: (context) =>
+                                  QuizScreen(quizId: "LNdC0HC7EXVgydpAz4Rv")));
                     },
                     child: const DashBoardItem(
                       title: "Quizes",
@@ -258,9 +300,14 @@ class _StudentDashboardState extends State<StudentDashboard> {
                     title: "Fee Record",
                     icon: Icons.attach_money,
                   ),
-                  const DashBoardItem(
-                    title: "Sign Out",
-                    icon: Icons.exit_to_app,
+                  GestureDetector(
+                    onTap: () {
+                      logout();
+                    },
+                    child: const DashBoardItem(
+                      title: "Sign Out",
+                      icon: Icons.exit_to_app,
+                    ),
                   ),
                 ],
               ),
