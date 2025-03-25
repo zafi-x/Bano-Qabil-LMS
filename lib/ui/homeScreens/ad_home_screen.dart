@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/adminQuiz.dart';
+import 'package:qabilacademy/ui/homeScreens/Task_creationScreen.dart';
 import 'package:qabilacademy/ui/Student_data.dart/Student.dart';
 import 'package:qabilacademy/ui/auth/add_student.dart';
 import 'package:get/get.dart';
@@ -175,7 +177,12 @@ class _AdHomeScreenState extends State<AdHomeScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AdminTaskScreen()));
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.green,
@@ -233,9 +240,6 @@ class _AdHomeScreenState extends State<AdHomeScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Get.to(() => StudentListScreen());
-                    },
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.amber,
@@ -252,7 +256,65 @@ class _AdHomeScreenState extends State<AdHomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.person, size: 50, color: Colors.white),
+                          Text("Student Queries",
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => StudentListScreen());
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.purple,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300,
+                            blurRadius: 5,
+                            spreadRadius: 2,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.person, size: 50, color: Colors.white),
                           Text("Student Data",
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      logout();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300,
+                            blurRadius: 5,
+                            spreadRadius: 2,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.person, size: 50, color: Colors.white),
+                          Text("Sign Out",
                               style: TextStyle(
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.bold,

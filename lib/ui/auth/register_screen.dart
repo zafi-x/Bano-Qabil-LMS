@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qabilacademy/components/main_button.dart';
 import 'package:get/get.dart';
@@ -100,231 +101,174 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.teal,
-              Colors.white,
-              Colors.teal,
-            ],
-            begin: Alignment.bottomRight,
-            end: Alignment.topLeft,
+      body: SafeArea(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.teal, Colors.white, Colors.teal],
+              begin: Alignment.bottomRight,
+              end: Alignment.topLeft,
+            ),
           ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Text('Register To Continue',
-                    style: GoogleFonts.merriweather(
-                        textStyle: const TextStyle(
-                            fontSize: 24,
-                            color: Colors.indigo,
-                            fontWeight: FontWeight.bold))),
-                const SizedBox(
-                  height: 40,
-                ),
-                Form(
-                    // form create hai taky user data ko hm validate kr sky
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          child: DropdownButtonFormField<String>(
-                            iconEnabledColor: Colors.indigo,
-                            decoration: InputDecoration(
-                              fillColor: Colors.indigo[50],
-                              filled: true,
-                              labelText: 'Join as',
-                              labelStyle: const TextStyle(color: Colors.indigo),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.indigo),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            items: ['Admin', 'Student'].map((String user) {
-                              return DropdownMenuItem<String>(
-                                value: user,
-                                child: Text(user),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                userRole = newValue!;
-                              });
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Select Role!';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextFormField(
-                            keyboardType: TextInputType.name,
-                            controller: _nameController,
-                            decoration: InputDecoration(
-                              suffixIcon: const Icon(
-                                Icons.person,
-                                color: Colors.indigo,
-                              ),
-                              label: const Text('Name'),
-                              labelStyle: const TextStyle(color: Colors.indigo),
-                              fillColor: Colors.indigo[50],
-                              filled: true,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.indigo),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Enter Name!';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            controller: _emailController,
-                            decoration: InputDecoration(
-                              suffixIcon: const Icon(
-                                Icons.email,
-                                color: Colors.indigo,
-                              ),
-                              label: const Text('Email'),
-                              labelStyle: const TextStyle(color: Colors.indigo),
-                              fillColor: Colors.indigo[50],
-                              filled: true,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.indigo),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Enter Email!'; // Ensures null and empty string are checked
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextFormField(
-                            controller: _passwordController,
-                            decoration: InputDecoration(
-                              suffixIcon: const Icon(
-                                Icons.remove_red_eye,
-                                color: Colors.indigo,
-                              ),
-                              label: const Text('Password'),
-                              labelStyle: const TextStyle(color: Colors.indigo),
-                              fillColor: Colors.indigo[50],
-                              filled: true,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.indigo),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Enter Password!'; // Ensures null and empty string are checked
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        )
-                      ],
-                    )),
-                MainButton(
-                    title: 'Register',
-                    loading: isLoading,
-                    onTap: () {
-                      registerUser();
-                    }),
-                const SizedBox(
-                  height: 10,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'Already have an account? ',
+          child: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  children: [
+                    Text(
+                      'Register To Continue',
                       style: GoogleFonts.merriweather(
-                        textStyle: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
+                        textStyle: TextStyle(
+                          fontSize: 24.sp,
+                          color: Colors.indigo,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      children: [
-                        TextSpan(
-                          text: 'Login',
+                    ),
+                    SizedBox(height: 40.h),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          _buildDropdownField(
+                            label: 'Join as',
+                            items: ['Admin', 'Student'],
+                            onChanged: (value) => userRole = value!,
+                          ),
+                          SizedBox(height: 20.h),
+                          _buildTextField(
+                            controller: _nameController,
+                            label: 'Name',
+                            icon: Icons.person,
+                          ),
+                          SizedBox(height: 20.h),
+                          _buildTextField(
+                            controller: _emailController,
+                            label: 'Email',
+                            icon: Icons.email,
+                          ),
+                          SizedBox(height: 20.h),
+                          _buildTextField(
+                            controller: _passwordController,
+                            label: 'Password',
+                            icon: Icons.lock,
+                            obscureText: true,
+                          ),
+                          SizedBox(height: 20.h),
+                        ],
+                      ),
+                    ),
+                    MainButton(
+                      title: 'Register',
+                      loading: isLoading,
+                      onTap: registerUser,
+                    ),
+                    SizedBox(height: 10.h),
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Already have an account? ',
                           style: GoogleFonts.merriweather(
-                            textStyle: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.indigo,
+                            textStyle: TextStyle(
+                              fontSize: 14.sp,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          children: [
+                            TextSpan(
+                              text: 'Login',
+                              style: GoogleFonts.merriweather(
+                                textStyle: TextStyle(
+                                  fontSize: 16.sp,
+                                  color: Colors.indigo,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
       ),
-    ));
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    bool obscureText = false,
+  }) {
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        suffixIcon: Icon(icon, color: Colors.indigo),
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.indigo),
+        fillColor: Colors.indigo[50],
+        filled: true,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.indigo),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Enter $label!';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buildDropdownField({
+    required String label,
+    required List<String> items,
+    required ValueChanged<String?> onChanged,
+  }) {
+    return DropdownButtonFormField<String>(
+      decoration: InputDecoration(
+        labelText: label,
+        fillColor: Colors.indigo[50],
+        filled: true,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.indigo),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+      ),
+      items: items.map((item) {
+        return DropdownMenuItem<String>(
+          value: item,
+          child: Text(item),
+        );
+      }).toList(),
+      onChanged: onChanged,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Select $label!';
+        }
+        return null;
+      },
+    );
   }
 }

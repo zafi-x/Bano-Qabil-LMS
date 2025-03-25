@@ -1,30 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:qabilacademy/providers/query_provider.dart';
 
-class QueriesScreen extends StatefulWidget {
-  @override
-  _QueriesScreenState createState() => _QueriesScreenState();
-}
-
-class _QueriesScreenState extends State<QueriesScreen> {
-  final TextEditingController _queryController = TextEditingController();
-  List<Map<String, String>> queries = [];
-
-  void _submitQuery() {
-    if (_queryController.text.isNotEmpty) {
-      setState(() {
-        queries.insert(0, {
-          'query': _queryController.text,
-          'response': 'Pending response...'
-        });
-      });
-      _queryController.clear();
-    }
-  }
-
+class QueriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final queryProvider = Provider.of<QueryProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -42,7 +26,7 @@ class _QueriesScreenState extends State<QueriesScreen> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _queryController,
+                    controller: queryProvider.queryController,
                     decoration: InputDecoration(
                       focusColor: Colors.teal,
                       focusedBorder: OutlineInputBorder(
@@ -60,7 +44,7 @@ class _QueriesScreenState extends State<QueriesScreen> {
                     backgroundColor:
                         MaterialStateProperty.all(Colors.teal.shade400),
                   ),
-                  onPressed: _submitQuery,
+                  onPressed: queryProvider.submitQuery,
                   child: const Text(
                     'Submit',
                     style: TextStyle(color: Colors.black, fontSize: 16),

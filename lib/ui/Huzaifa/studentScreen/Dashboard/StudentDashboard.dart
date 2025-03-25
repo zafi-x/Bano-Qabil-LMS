@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+// import 'package:provider/provider.dart';
+import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/quizAttempt.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quries/quries.dart';
-import 'package:qabilacademy/ui/Huzaifa/studentScreen/Tasks/task.dart';
+import 'package:qabilacademy/ui/Huzaifa/studentScreen/Tasks/Task_SumissionScreen.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/cources/CourcesScreen.dart';
 import 'package:qabilacademy/ui/Huzaifa/custom/DashBoardItem.dart';
-import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/quiz_screen.dart';
+// import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/quiz_screen.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/TimeTable/timeTable.dart'
     as timeTable1;
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/profile/Profile.dart';
@@ -23,7 +24,7 @@ void logout() async {
   } catch (e) {
     // print("Error logging out: $e");
   }
-  Get.to(() => LoginScreen());
+  Get.to(() => const LoginScreen());
 }
 
 class StudentDashboard extends StatefulWidget {
@@ -98,7 +99,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => StudentDashboard()));
+                        builder: (context) => const StudentDashboard()));
               },
             ),
             ListTile(
@@ -108,8 +109,8 @@ class _StudentDashboardState extends State<StudentDashboard> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => QuizScreen(
-                              quizId: "LNdC0HC7EXVgydpAz4Rv",
+                        builder: (context) => const QuizAttemptScreen(
+                              studentID: '',
                             )));
               },
             ),
@@ -167,7 +168,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                     children: [
                       CircleAvatar(
                         radius: 45.r,
-                        backgroundImage: AssetImage('assets/image.png'),
+                        backgroundImage: const AssetImage('assets/image.png'),
                       ),
                       const SizedBox(width: 10),
                       Flexible(
@@ -246,10 +247,12 @@ class _StudentDashboardState extends State<StudentDashboard> {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  QuizScreen(quizId: "LNdC0HC7EXVgydpAz4Rv")));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const QuizAttemptScreen(
+                                  studentID: '',
+                                )),
+                      );
                     },
                     child: const DashBoardItem(
                       title: "Quizes",
@@ -285,7 +288,10 @@ class _StudentDashboardState extends State<StudentDashboard> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TaskScreen()));
+                              builder: (context) => TaskSubmissionScreen(
+                                    studentId: user?.uid,
+                                    studentName: userName,
+                                  )));
                     },
                     child: const DashBoardItem(
                       title: "Tasks",
