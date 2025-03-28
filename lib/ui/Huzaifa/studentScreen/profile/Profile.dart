@@ -6,141 +6,65 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.teal.shade300,
       body: Padding(
-        padding: const EdgeInsets.all(25.0),
+        padding: EdgeInsets.all(screenWidth * 0.07),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 40.h,
-            ),
+            SizedBox(height: screenHeight * 0.05),
             Center(
               child: Text(
                 'Profile',
-                style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 33.h,
-            ),
-            const CircleAvatar(
-              radius: 70,
-              backgroundImage: AssetImage('assets/image.png'),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Name : ',
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Muhammad Huzaifa',
-                    style: TextStyle(
-                      fontSize: 23.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Email : ',
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'huzaifa123@gmail.com',
-                    style: TextStyle(
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'ID : ',
-                  style: TextStyle(
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+                style: TextStyle(
+                  fontSize: screenWidth * 0.07,
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(
-                  '1234',
-                  style: TextStyle(
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Mobile : ',
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    '0333-1234567',
-                    style: TextStyle(
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  ),
-                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Course : ',
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Mobile App Development',
-                    style: TextStyle(
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  ),
-                ],
-              ),
+            SizedBox(height: screenHeight * 0.04),
+            CircleAvatar(
+              radius: screenWidth * 0.2,
+              backgroundImage: const AssetImage('assets/image.png'),
             ),
+            SizedBox(height: screenHeight * 0.03),
+            _buildProfileRow("Name", "Muhammad Huzaifa", screenWidth),
+            _buildProfileRow("Email", "huzaifa123@gmail.com", screenWidth),
+            _buildProfileRow("ID", "1234", screenWidth),
+            _buildProfileRow("Mobile", "0333-1234567", screenWidth),
+            _buildProfileRow("Course", "Mobile App Development", screenWidth),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildProfileRow(String label, String value, double screenWidth) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.02),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '$label : ',
+            style: TextStyle(
+              fontSize: screenWidth * 0.06,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: screenWidth * 0.05,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }

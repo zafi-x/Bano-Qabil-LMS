@@ -140,27 +140,27 @@ class _AdminQuizScreenState extends State<AdminQuizScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: isLoading ? null : () => createQuiz(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 25.w, vertical: 12.h),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: isLoading
-                        ? CircularProgressIndicator(color: Colors.white)
-                        : Text(
-                            "Create Quiz",
-                            style: GoogleFonts.poppins(
-                              fontSize: 14.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                  ),
-                  ElevatedButton(
+                    //   onPressed: isLoading ? null : () => createQuiz(),
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor: Colors.teal,
+                    //     padding: EdgeInsets.symmetric(
+                    //         horizontal: 25.w, vertical: 12.h),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //   ),
+                    //   child: isLoading
+                    //       ? CircularProgressIndicator(color: Colors.white)
+                    //       : Text(
+                    //           "Create Quiz",
+                    //           style: GoogleFonts.poppins(
+                    //             fontSize: 14.sp,
+                    //             color: Colors.white,
+                    //             fontWeight: FontWeight.w600,
+                    //           ),
+                    //         ),
+                    // ),
+                    // ElevatedButton(
                     onPressed: isLoading
                         ? null
                         : () => createQuiz(navigateToAddQuestions: true),

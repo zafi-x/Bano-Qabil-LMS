@@ -110,18 +110,20 @@ class RamadanTimetableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Timings in Ramadan",
-          style:
-              GoogleFonts.poppins(fontSize: 23.sp, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: screenWidth * 0.06, fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
-          columnSpacing: 29.0,
+          columnSpacing: screenWidth * 0.08,
           columns: const [
             DataColumn(
                 label: Text("Campus",

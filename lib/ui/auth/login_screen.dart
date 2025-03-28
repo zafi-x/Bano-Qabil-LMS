@@ -28,6 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -41,33 +43,31 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Center(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 child: Column(
                   children: [
                     Text(
                       'Welcome Back!',
-                      style: GoogleFonts.merriweather(
-                        textStyle: TextStyle(
-                          fontSize: 24.sp,
-                          color: Colors.indigo,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.06,
+                        color: Colors.indigo,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 40.h),
+                    SizedBox(height: screenWidth * 0.1),
                     _buildTextField(
                       controller: loginEmailController,
                       label: 'Email',
                       icon: Icons.email,
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: screenWidth * 0.05),
                     _buildTextField(
                       controller: loginPasswordController,
                       label: 'Password',
                       icon: Icons.lock,
                       obscureText: true,
                     ),
-                    SizedBox(height: 60.h),
+                    SizedBox(height: screenWidth * 0.15),
                     MainButton(
                       loading: isloading,
                       title: 'Login',
@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       },
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: screenWidth * 0.05),
                     GestureDetector(
                       onTap: () {
                         Get.to(() => const RegisterScreen());
@@ -186,22 +186,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Not Registered? ',
-                          style: GoogleFonts.merriweather(
-                            textStyle: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          style: TextStyle(
+                            fontSize: screenWidth * 0.04,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
                           children: [
                             TextSpan(
                               text: 'Register',
-                              style: GoogleFonts.merriweather(
-                                textStyle: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Colors.indigo,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.045,
+                                color: Colors.indigo,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],

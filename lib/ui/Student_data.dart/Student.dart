@@ -110,6 +110,9 @@ class _StudentListScreenState extends State<StudentListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(title: Text("Students")),
       body: students.isEmpty
@@ -118,17 +121,17 @@ class _StudentListScreenState extends State<StudentListScreen> {
               itemCount: students.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(screenWidth * 0.03),
                   child: GestureDetector(
                     onTap: () {
                       showStudentDetails(students[index]);
                     },
                     child: Container(
-                      height: 80,
+                      height: screenHeight * 0.1,
                       decoration: BoxDecoration(
                         color: Colors.blue[100],
                         border: Border.all(color: Colors.blue),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(screenWidth * 0.03),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,7 +142,7 @@ class _StudentListScreenState extends State<StudentListScreen> {
                               Text("Name: ${students[index]['name']}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 16)),
+                                      fontSize: screenWidth * 0.045)),
                               Text(
                                   "Roll No: ${students[index]['rollNo']} | Batch: ${students[index]['batch']}"),
                             ],
@@ -147,7 +150,8 @@ class _StudentListScreenState extends State<StudentListScreen> {
                           Text(
                             students[index]['course'],
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenWidth * 0.045),
                           ),
                         ],
                       ),

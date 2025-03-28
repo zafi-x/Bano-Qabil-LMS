@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:provider/provider.dart';
-import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/quizAttempt.dart';
+import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/allQuizScreen.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quries/quries.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Tasks/Task_SumissionScreen.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/cources/CourcesScreen.dart';
@@ -14,6 +14,7 @@ import 'package:qabilacademy/ui/Huzaifa/custom/DashBoardItem.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/TimeTable/timeTable.dart'
     as timeTable1;
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/profile/Profile.dart';
+import 'package:qabilacademy/ui/homeScreens/ad_home_screen.dart';
 
 import '../../../auth/login_screen.dart';
 
@@ -66,12 +67,16 @@ class _StudentDashboardState extends State<StudentDashboard> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Qabil Academy ",
-            style: GoogleFonts.poppins(
-                fontSize: 23.sp, fontWeight: FontWeight.bold)),
+            style: TextStyle(
+                fontSize: screenWidth * 0.06, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
@@ -139,11 +144,21 @@ class _StudentDashboardState extends State<StudentDashboard> {
                 logout();
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text("admin "),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AdHomeScreen()));
+              },
+            ),
           ],
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenWidth * 0.04),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -155,70 +170,72 @@ class _StudentDashboardState extends State<StudentDashboard> {
                     MaterialPageRoute(
                         builder: (context) => const ProfileScreen()));
               },
-              child: Flexible(
-                child: Container(
-                  // height: 120.h,
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.teal,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 45.r,
-                        backgroundImage: const AssetImage('assets/image.png'),
+              child: Container(
+                // Replaced Flexible with Container
+                // height: 120.h,
+                width: double.infinity,
+                padding: EdgeInsets.all(screenWidth * 0.04),
+                decoration: BoxDecoration(
+                  color: Colors.teal,
+                  borderRadius: BorderRadius.circular(screenWidth * 0.03),
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: screenWidth * 0.12,
+                      backgroundImage: const AssetImage('assets/image.png'),
+                    ),
+                    SizedBox(width: screenWidth * 0.03),
+                    Expanded(
+                      // Use Expanded to handle flexible space
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Welcome Back!",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: screenWidth * 0.05)),
+                          Text(userName,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: screenWidth * 0.05,
+                                  fontWeight: FontWeight.bold)),
+                          Text("Mobile APP Dev | 1234",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: screenWidth * 0.04)),
+                        ],
                       ),
-                      const SizedBox(width: 10),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Welcome Back!",
-                                style: GoogleFonts.poppins(
-                                    color: Colors.white, fontSize: 19.sp)),
-                            Text(userName,
-                                style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    fontSize: 19.sp,
-                                    fontWeight: FontWeight.bold)),
-                            Text("Mobile APP Dev | 1234",
-                                style: GoogleFonts.poppins(
-                                    color: Colors.white, fontSize: 14.sp)),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
                 ),
               ),
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: screenHeight * 0.03),
 
             // LMS Notification
             Container(
-              padding: const EdgeInsets.all(15),
+              padding: EdgeInsets.all(screenWidth * 0.04),
               decoration: BoxDecoration(
                 color: Colors.amber.shade600,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(screenWidth * 0.03),
               ),
               child: Row(
                 children: [
                   const Icon(Icons.notifications, color: Colors.white),
-                  const SizedBox(width: 10),
+                  SizedBox(width: screenWidth * 0.03),
                   Expanded(
                     child: Text(
                       "Quiz for Mobile App Development ",
-                      style: GoogleFonts.poppins(
-                          color: Colors.white, fontSize: 14.sp),
+                      style: TextStyle(
+                          color: Colors.white, fontSize: screenWidth * 0.04),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20.sp),
+            SizedBox(height: screenHeight * 0.03),
 
             // Grid Menu
             Expanded(

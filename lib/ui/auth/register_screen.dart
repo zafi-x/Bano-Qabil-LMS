@@ -100,6 +100,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -113,20 +115,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Center(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 child: Column(
                   children: [
                     Text(
                       'Register To Continue',
-                      style: GoogleFonts.merriweather(
-                        textStyle: TextStyle(
-                          fontSize: 24.sp,
-                          color: Colors.indigo,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.06,
+                        color: Colors.indigo,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 40.h),
+                    SizedBox(height: screenWidth * 0.1),
                     Form(
                       key: _formKey,
                       child: Column(
