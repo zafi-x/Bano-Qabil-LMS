@@ -3,14 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-// import 'package:provider/provider.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/allQuizScreen.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quries/quries.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Tasks/Task_SumissionScreen.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/cources/CourcesScreen.dart';
 import 'package:qabilacademy/ui/Huzaifa/custom/DashBoardItem.dart';
-// import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/quiz_screen.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/TimeTable/timeTable.dart'
     as timeTable1;
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/profile/Profile.dart';
@@ -144,6 +141,8 @@ class _StudentDashboardState extends State<StudentDashboard> {
                 logout();
               },
             ),
+
+            // Only for Testing Purpose
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text("admin "),
@@ -154,6 +153,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                         builder: (context) => const AdHomeScreen()));
               },
             ),
+            // Only for Testing Purpose
           ],
         ),
       ),

@@ -2,13 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:qabilacademy/ui/Huzaifa/studentScreen/Quiz/adminQuiz.dart';
 import 'package:qabilacademy/ui/homeScreens/Task_creationScreen.dart';
 import 'package:qabilacademy/ui/Student_data.dart/Student.dart';
 import 'package:qabilacademy/ui/auth/add_student.dart';
-import 'package:get/get.dart';
 import 'package:qabilacademy/ui/attendence/subject_Screen.dart';
 import 'package:qabilacademy/ui/auth/login_screen.dart';
 

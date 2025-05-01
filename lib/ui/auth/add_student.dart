@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:qabilacademy/components/main_button.dart';
 import 'package:qabilacademy/ui/auth/login_screen.dart';
 
 class AddStudent extends StatefulWidget {

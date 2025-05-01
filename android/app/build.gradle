@@ -14,13 +14,16 @@ android {
     namespace = "com.example.qabilacademy"
     
     // Hardcoded SDK versions for better compatibility
-    compileSdk = 34
+    compileSdk = 35
     ndkVersion = "25.2.9519653"
 
+    
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+}
+
+
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
@@ -30,7 +33,7 @@ android {
         applicationId = "com.example.qabilacademy"
 
         // Hardcoded values for stability
-        minSdk = 23
+        minSdk = 21
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
